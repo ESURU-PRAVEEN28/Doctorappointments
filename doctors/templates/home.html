@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<div class="main" >
+    {% for i in data%}
+    <div class="card">
+    <h1>{{i.name }}</h1>
+    <h1>{{i.specialization}} </h1>
+    <h1>{{i.phone }}</h1>
+    <h1> {{i.email }}</h1>
+    <h1>{{i.registration_date}} </h1>
+    <h1>{{i.availability}} </h1>
+    <h1>{{i.fees}} </h1>
+     <h1> {{i.place}}</h1>
+        <form method="POST" action="{% url 'send_email'%}">
+        {% csrf_token %}
+            <input type="hidden" value="{{i.email}}" name="email">
+            <input type="hidden" value="{{i.name}}" name="doctor">
+
+            <input type="hidden" value="{{i.specialization}} "name ="spe">
+            {{i.specialization}}
+            <input type="hidden" value="appointment" name="app">
+            <button type="submit">Book Appointment</button>
+</form>
+    </div>
+    <button><a href="{% url 'register'%}">register</a></button>
+<button><a href="{% url 'login'%}">login</a></button>
+    <button><a href="{% url 'admin_login'%}">Admin_login</a></button>
+<button><a href="{% url 'home'%}">Home</a></button>
+
+
+    {%endfor%}
+</div>
+</body>
+</html>

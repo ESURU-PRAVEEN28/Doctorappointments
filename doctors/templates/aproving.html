@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Approve</title>
+</head>
+<body>
+<table>
+    <tr>
+    <th>Name</th>
+        <th>specialization</th>
+         <th>phone</th>
+         <th>email</th>
+         <th>registration_date</th>
+         <th>availability</th>
+         <th>fees</th>
+         <th>place</th>
+         <th>Apporve</th>
+        <th>Reject</th>
+    </tr>
+     <div class="main">
+       {% for i in data%}
+    <div class="card">
+        <tr>
+    <td>{{i.name }}</td>
+    <td>{{i.specialization}} </td>
+    <td>{{i.phone }}</td>
+    <td> {{i.email }}</td>
+    <td>{{i.registration_date}} </td>
+    <td>{{i.availability}} </td>
+    <td>{{i.fees}} </td>
+     <td> {{i.place}}</td>
+            <td>
+                <form method="POST" action="{%url 'approvedoctor'%}">
+                    <input type="hidden" value="{{i.email }}" name="mail">
+
+                    <button type="submit">Approve</button>
+
+                </form>
+
+            </td>
+             <td>
+                <form method="POST" action="{%url 'reject'%}">
+                    <input type="hidden" value="{{i.email }}" name="mail">
+
+                    <button type="submit">Reject</button>
+
+                </form>
+
+            </td>
+
+
+        </tr>
+
+
+
+    </div>
+
+
+
+    {%endfor%}
+     </div>
+
+    </table>
+</body>
+</html>

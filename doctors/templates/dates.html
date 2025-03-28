@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dates</title>
+</head>
+<body>
+{%for i in data%}
+<form action="{% url 'shedule'%}" method="post">
+  {%csrf_token%}
+  <input type="hidden" name="mail" value={{mail}}>
+  <input type="hidden" name="y" value={{i.date.year}}>
+  <input type="hidden" name="m" value={{i.date.month}}>
+  <input type="hidden" name="d" value={{i.date.day}}>
+  <button type="submit">{{i.date}}</button>
+  </form>
+{%endfor%}
+</body>
+</html>

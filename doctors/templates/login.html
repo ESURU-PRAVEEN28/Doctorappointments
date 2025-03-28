@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<form method="post" action="{%url 'login'%}">
+    {% csrf_token %}
+
+
+    <input type="email" name="name" placeholder="Enter the email:">
+    <input type="text" name="password" placeholder="Enter the Password:">
+    <button type="submit">submit</button>
+
+
+
+</form>
+
+<button><a href="{% url 'register'%}">register</a></button>
+<button><a href="{% url 'send_email'%}">bookappointment</a></button>
+
+</body>
+</html>

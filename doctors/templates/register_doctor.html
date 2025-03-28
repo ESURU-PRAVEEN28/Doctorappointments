@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register</title>
+</head>
+<body>
+<div class="main">
+    <form method="POST" action="{% url 'register'%}">
+        {% csrf_token%}
+        <input name="name" placeholder="Enter the Name" type="text">
+        <input name="password" placeholder="enter the Password" type="text">
+         <label for="specialist">Choose a Specialist:</label>
+        <select id="specialist" name="specialization">
+            <option value="neurologist">Neurologist (Brain Doctor)</option>
+            <option value="cardiologist">Cardiologist (Heart Doctor)</option>
+            <option value="dermatologist">Dermatologist (Skin Doctor)</option>
+            <option value="psychiatrist">Psychiatrist (Mental Health Doctor)</option>
+            <option value="orthopedist">Orthopedist (Bone Doctor)</option>
+            <option value="pediatrician">Pediatrician (Child Doctor)</option>
+            <option value="gastroenterologist">Gastroenterologist (Digestive System Doctor)</option>
+            <option value="pulmonologist">Pulmonologist (Lung Doctor)</option>
+            <option value="endocrinologist">Endocrinologist (Hormone Doctor)</option>
+            <option value="oncologist">Oncologist (Cancer Doctor)</option>
+            <option value="urologist">Urologist (Urinary Tract Doctor)</option>
+            <option value="nephrologist">Nephrologist (Kidney Doctor)</option>
+            <option value="rheumatologist">Rheumatologist (Joint and Autoimmune Doctor)</option>
+            <option value="allergist">Allergist (Allergy Doctor)</option>
+            <option value="infectious_disease_specialist">Infectious Disease Specialist</option>
+            <option value="radiologist">Radiologist (Imaging Specialist)</option>
+            <option value="pathologist">Pathologist (Disease Diagnosis Specialist)</option>
+            <option value="obgyn">OB-GYN (Obstetrics and Gynecology)</option>
+            <option value="dentist">Dentist (Oral Health Specialist)</option>
+            <option value="audiologist">Audiologist (Hearing Doctor)</option>
+            <option value="optometrist">Optometrist (Eye Doctor)</option>
+            <option value="physiatrist">Physiatrist (Physical Medicine Doctor)</option>
+            <option value="plastic_surgeon">Plastic Surgeon (Cosmetic Surgery Specialist)</option>
+            <option value="geriatrician">Geriatrician (Elderly Care Specialist)</option>
+            <option value="chiropractor">Chiropractor (Spinal Health Specialist)</option>
+            <option value="speech_therapist">Speech Therapist (Speech and Language Specialist)</option>
+        </select>
+        <input name="phone" placeholder="Enter the Phone" type="number">
+        <input name="email" placeholder="Enter the Name" type="email">
+        <input name="availability" placeholder="Enter the:  example 10:00 AM - 4:00 PM" type="availability">
+        <input name="fees" placeholder="Enter the Fees" type="number">
+        <input name="place" placeholder="Enter the Place" type="text">
+        <button type="submit">register</button>
+    </form>
+</div>
+<button><a href="{% url 'login'%}">login</a></button>
+</body>
+</html>

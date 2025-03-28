@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Pending</title>
+</head>
+<style>
+  table,tr,th,td{
+  border:2px solid black,
+
+  }
+</style>
+<body>
+hi this login page
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Problem</th>
+    <th>E-Mail</th>
+    <th>Address</th>
+    <th>Shedule date</th>
+    <th>Booking Conformed</th>
+    <th>Rejected</th>
+  </tr>
+
+  <tr>
+    {%for i in data%}
+    <td>{{i.name}}</td>
+    <td>{{i.problem}}</td>
+
+    <td>{{i.email}}</td>
+
+    <td>{{i.address}}</td>
+    <form action="{%url 'confirm'%}" method="post">
+      {% csrf_token %}
+    <td>
+
+      <input type="date" name="date"></td>
+      <input type="hidden" name="name" value="{{i.name}}">
+      <input type="hidden" name="problem" value="{{i.problem}}">
+      <input type="hidden" name="email" value="{{i.email}}">
+      <input type="hidden" name="address" value="{{i.address}}">
+      <input type="hidden" name="doc_mail" value="{{i.doc_mail}}">
+      <input type="hidden" name="doctor" value="{{i.doctor}}">
+
+    <td><button>Conformed</button></td>
+      </form>
+    <form>
+    <td><button>Reject</button></td>
+    </form>
+
+
+
+    {%endfor%}
+
+  </tr>
+
+
+
+</table>
+</body>
+</html>

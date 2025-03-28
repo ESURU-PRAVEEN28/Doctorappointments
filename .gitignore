@@ -1,0 +1,37 @@
+# Ignore Python bytecode files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Ignore virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Ignore Django migrations
+*/migrations/
+
+# Ignore database files (SQLite by default)
+db.sqlite3
+
+# Ignore media and static files (can be generated on deployment)
+media/
+static/
+
+# Ignore environment configuration files
+.env
+
+# Ignore PyCharm project files
+.idea/
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore local settings (if you have settings_local.py or similar)
+settings_local.py
