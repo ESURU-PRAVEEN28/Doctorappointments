@@ -1,39 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
+{% extends 'master.html'%}
+{% load static %}
+{% block title %}<title>Home</title>{% endblock %}
+{% block extra_css %}{%endblock%}
+
+{% block content %}
 <div class="main" >
     {% for i in data%}
     <div class="card">
-    <h1>{{i.name }}</h1>
-    <h1>{{i.specialization}} </h1>
-    <h1>{{i.phone }}</h1>
-    <h1> {{i.email }}</h1>
-    <h1>{{i.registration_date}} </h1>
-    <h1>{{i.availability}} </h1>
-    <h1>{{i.fees}} </h1>
-     <h1> {{i.place}}</h1>
+    <h3>{{i.name }}</h3>
+    <h3>{{i.specialization}} </h3>
+    <h3>{{i.phone }}</h3>
+    <h3> {{i.email }}</h3>
+    <h3>{{i.registration_date}} </h3>
+    <h3>{{i.availability}} </h3>
+    <h3>{{i.fees}} </h3>
+     <h3> {{i.place}}</h3>
         <form method="POST" action="{% url 'send_email'%}">
         {% csrf_token %}
             <input type="hidden" value="{{i.email}}" name="email">
             <input type="hidden" value="{{i.name}}" name="doctor">
 
             <input type="hidden" value="{{i.specialization}} "name ="spe">
-            {{i.specialization}}
+
             <input type="hidden" value="appointment" name="app">
             <button type="submit">Book Appointment</button>
 </form>
     </div>
-    <button><a href="{% url 'register'%}">register</a></button>
-<button><a href="{% url 'login'%}">login</a></button>
-    <button><a href="{% url 'admin_login'%}">Admin_login</a></button>
-<button><a href="{% url 'home'%}">Home</a></button>
+
 
 
     {%endfor%}
 </div>
-</body>
-</html>
+<style>
+/* Overall layout */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+     background: linear-gradient(180deg, #a0c4ff, #ffffff);
+}
+
+.main {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Creates responsive grid */
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    border: solid black 1px;
+    padding: 15px;
+
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f9f9f9;
+    border-radius:5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 10);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for the card */
+.card:hover {
+    transform: translateY(-10px); /* Moves the card slightly up */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Adds a stronger shadow */
+}
+
+/* Card content styling */
+.card h3 {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.card form {
+    margin-top: 10px;
+}
+
+/* Button Styling */
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for the button */
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly grows the button */
+}
+
+/* Media Queries for responsiveness */
+@media screen and (max-width: 768px) {
+    /* On tablet screens and below, the grid will have fewer columns */
+    .main {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .card {
+        padding: 12px;
+        background:blue:
+    }
+
+    .card h3 {
+        font-size: 14px;
+    }
+
+    button {
+        padding: 8px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* On small screens, make sure the cards fit and have enough space */
+    .main {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .card h3 {
+        font-size: 12px;
+    }
+
+    button {
+        padding: 6px;
+        font-size: 12px;
+    }
+}
+
+
+</style>
+{%endblock%}

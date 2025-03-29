@@ -36,3 +36,10 @@ class Booking(models.Model):
     doctor=models.CharField(max_length=100)
     doc_mail=models.EmailField(max_length=300,default="NONE@gmail.com")
     specialization=models.CharField(max_length=100 )
+    is_verify=models.IntegerField(
+        default=2,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(2)
+        ]
+    )

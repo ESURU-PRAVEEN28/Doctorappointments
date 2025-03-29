@@ -92,13 +92,14 @@ def send_email_view(request):
         """
 
         # Send the email
-        send_mail(
-            subject,
-            message,
-            settings.DEFAULT_FROM_EMAIL,
-            [receiver_email],
-            fail_silently=False,
-        )
+        # send_mail(
+        #     subject,
+        #     message,
+        #     settings.DEFAULT_FROM_EMAIL,
+        #     [receiver_email],
+        #     fail_silently=False,
+        # )
+        emailmessage(subject,message,receiver_email)
 
         return render(request, 'send_email.html', {'otp': otp ,'name':name,'problem':problem,
                                                    'mail':receiver_email,'address':address,'specialization':specialization,
@@ -128,6 +129,16 @@ def verify(request):
         print("this is error")
         return HttpResponse(f"this is error {e}")
 
+
+
+def emailmessage(subject,message,mail):
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [mail],
+        fail_silently=False,
+    )
 
 
 

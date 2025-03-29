@@ -1,24 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-<form method="post" action="{%url 'login'%}">
-    {% csrf_token %}
+{% extends 'master.html'%}
+{% load static %}
+{% block title %}<title>LOGIN</title>{% endblock %}
+{% block extra_css %}{%endblock%}
+
+{% block content %}
+<h2>Doctor Login</h2>
+<div class="main">
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <input type="email" name="name" placeholder="Enter the email:" required>
+        <input type="text" name="password" placeholder="Enter the Password:" required>
+        <button type="submit">Submit</button>
+        <button class="register_btn"><a href="{% url 'register' %}">Register</a></button>
+    </form>
+</div>
 
 
-    <input type="email" name="name" placeholder="Enter the email:">
-    <input type="text" name="password" placeholder="Enter the Password:">
-    <button type="submit">submit</button>
+<style>
+   /* Basic Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+ background: linear-gradient(180deg, #a0c4ff, #ffffff);
+}
+
+/* Heading styling */
+h2 {
+    text-align: center;
+    color: black;
+    font-size: 32px;
+    margin-top: 200px;
+    margin-bottom:-150px;
+    text-transform: uppercase;
+}
+.main input{
+    color:black;
+}
+
+/* Main container for the form */
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    /* Gradient background */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Form container */
+.main form {
+    background-color: #fff;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 10);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+/* Input fields styling */
+.main form input {
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+/* Focus effect for input fields */
+.main form input:focus {
+    border-color: #2575fc;
+    outline: none;
+    box-shadow: 0 0 8px rgba(37, 117, 252, 0.4); /* Focus effect with shadow */
+}
+
+/* Submit button styling */
+.main form button {
+    padding: 12px;
+    background-color: #2575fc;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for submit button */
+.main form button:hover {
+    background-color: #6a11cb;
+    transform: scale(1.05); /* Slight scaling effect on hover */
+}
+a{
+text-decoration: none;
+color: white;
+}
+/* Register button styling */
+.register_btn {
+    padding: 12px;
+    background-color: #6a11cb;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Hover effect for register button */
+.register_btn:hover {
+    background-color: #2575fc;
+    transform: scale(1.05); /* Slight scaling effect */
+}
+
+/* Responsive Design - For tablets and below */
+@media screen and (max-width: 768px) {
+    h2 {
+        font-size: 28px;
+    }
+
+    .main form {
+        width: 90%;
+        padding: 30px;
+    }
+
+    .main form button,
+    .register_btn {
+        font-size: 14px;
+    }
+
+    .main form input {
+        font-size: 14px;
+    }
+}
+
+/* Responsive Design - For very small screens (mobiles) */
+@media screen and (max-width: 480px) {
+    h2 {
+        font-size: 24px;
+    }
+
+    .main form {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .main form button,
+    .register_btn {
+        font-size: 14px;
+    }
+
+    .main form input {
+        font-size: 14px;
+    }
+}
+
+</style>
 
 
-
-</form>
-
-<button><a href="{% url 'register'%}">register</a></button>
-<button><a href="{% url 'send_email'%}">bookappointment</a></button>
-
-</body>
-</html>
+{%endblock%}

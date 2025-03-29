@@ -1,4 +1,10 @@
 <!-- send_email.html -->
+{% extends 'master.html'%}
+{% load static %}
+{% block title %}<title>send_email</title>{% endblock %}
+{% block extra_css %}{%endblock%}
+
+{% block content %}
 {%if otp == None%}
 <form method="post">
     {% csrf_token %}
@@ -47,3 +53,4 @@
 
 
 {%endif%}
+{%endblock%}

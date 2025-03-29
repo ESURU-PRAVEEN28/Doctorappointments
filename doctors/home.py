@@ -12,3 +12,7 @@ def home(request):
     # d=User.objects.create_user(username="gana123",password="gana123",is_staff=True)
     print(data)
     return render(request,'home.html',{'data':data})
+
+
+def master(request):
+    return render(request,'master.html')

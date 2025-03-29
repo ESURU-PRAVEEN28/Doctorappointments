@@ -1,53 +1,177 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register</title>
-</head>
-<body>
-<div class="main">
-    <form method="POST" action="{% url 'register'%}">
-        {% csrf_token%}
-        <input name="name" placeholder="Enter the Name" type="text">
-        <input name="password" placeholder="enter the Password" type="text">
-         <label for="specialist">Choose a Specialist:</label>
-        <select id="specialist" name="specialization">
-            <option value="neurologist">Neurologist (Brain Doctor)</option>
-            <option value="cardiologist">Cardiologist (Heart Doctor)</option>
-            <option value="dermatologist">Dermatologist (Skin Doctor)</option>
-            <option value="psychiatrist">Psychiatrist (Mental Health Doctor)</option>
-            <option value="orthopedist">Orthopedist (Bone Doctor)</option>
-            <option value="pediatrician">Pediatrician (Child Doctor)</option>
-            <option value="gastroenterologist">Gastroenterologist (Digestive System Doctor)</option>
-            <option value="pulmonologist">Pulmonologist (Lung Doctor)</option>
-            <option value="endocrinologist">Endocrinologist (Hormone Doctor)</option>
-            <option value="oncologist">Oncologist (Cancer Doctor)</option>
-            <option value="urologist">Urologist (Urinary Tract Doctor)</option>
-            <option value="nephrologist">Nephrologist (Kidney Doctor)</option>
-            <option value="rheumatologist">Rheumatologist (Joint and Autoimmune Doctor)</option>
-            <option value="allergist">Allergist (Allergy Doctor)</option>
-            <option value="infectious_disease_specialist">Infectious Disease Specialist</option>
-            <option value="radiologist">Radiologist (Imaging Specialist)</option>
-            <option value="pathologist">Pathologist (Disease Diagnosis Specialist)</option>
-            <option value="obgyn">OB-GYN (Obstetrics and Gynecology)</option>
-            <option value="dentist">Dentist (Oral Health Specialist)</option>
-            <option value="audiologist">Audiologist (Hearing Doctor)</option>
-            <option value="optometrist">Optometrist (Eye Doctor)</option>
-            <option value="physiatrist">Physiatrist (Physical Medicine Doctor)</option>
-            <option value="plastic_surgeon">Plastic Surgeon (Cosmetic Surgery Specialist)</option>
-            <option value="geriatrician">Geriatrician (Elderly Care Specialist)</option>
-            <option value="chiropractor">Chiropractor (Spinal Health Specialist)</option>
-            <option value="speech_therapist">Speech Therapist (Speech and Language Specialist)</option>
-        </select>
-        <input name="phone" placeholder="Enter the Phone" type="number">
-        <input name="email" placeholder="Enter the Name" type="email">
-        <input name="availability" placeholder="Enter the:  example 10:00 AM - 4:00 PM" type="availability">
-        <input name="fees" placeholder="Enter the Fees" type="number">
-        <input name="place" placeholder="Enter the Place" type="text">
-        <button type="submit">register</button>
-    </form>
+{% extends 'master.html'%}
+{% load static %}
+{% block title %}<title>Register</title>{% endblock %}
+{% block extra_css %}{%endblock%}
+
+{% block content %}
+
+<div class="container">
+<button class="login-btn"><a href="{% url 'login'%}">Login</a></button>
+    <div class="form-box">
+
+        <form method="POST" action="{% url 'register'%}">
+            {% csrf_token %}
+            <input name="name" placeholder="Enter the Name" type="text" class="input-field">
+            <input name="password" placeholder="Enter the Password" type="text" class="input-field">
+            <label for="specialist">Choose a Specialist:</label>
+            <select id="specialist" name="specialization" class="input-field">
+                <option value="neurologist">Neurologist (Brain Doctor)</option>
+                <option value="cardiologist">Cardiologist (Heart Doctor)</option>
+                <option value="dermatologist">Dermatologist (Skin Doctor)</option>
+                <option value="psychiatrist">Psychiatrist (Mental Health Doctor)</option>
+                <option value="orthopedist">Orthopedist (Bone Doctor)</option>
+                <option value="pediatrician">Pediatrician (Child Doctor)</option>
+                <option value="gastroenterologist">Gastroenterologist (Digestive System Doctor)</option>
+                <option value="pulmonologist">Pulmonologist (Lung Doctor)</option>
+                <option value="endocrinologist">Endocrinologist (Hormone Doctor)</option>
+                <option value="oncologist">Oncologist (Cancer Doctor)</option>
+                <option value="urologist">Urologist (Urinary Tract Doctor)</option>
+                <option value="nephrologist">Nephrologist (Kidney Doctor)</option>
+                <option value="rheumatologist">Rheumatologist (Joint and Autoimmune Doctor)</option>
+                <option value="allergist">Allergist (Allergy Doctor)</option>
+                <option value="infectious_disease_specialist">Infectious Disease Specialist</option>
+                <option value="radiologist">Radiologist (Imaging Specialist)</option>
+                <option value="pathologist">Pathologist (Disease Diagnosis Specialist)</option>
+                <option value="obgyn">OB-GYN (Obstetrics and Gynecology)</option>
+                <option value="dentist">Dentist (Oral Health Specialist)</option>
+                <option value="audiologist">Audiologist (Hearing Doctor)</option>
+                <option value="optometrist">Optometrist (Eye Doctor)</option>
+                <option value="physiatrist">Physiatrist (Physical Medicine Doctor)</option>
+                <option value="plastic_surgeon">Plastic Surgeon (Cosmetic Surgery Specialist)</option>
+                <option value="geriatrician">Geriatrician (Elderly Care Specialist)</option>
+                <option value="chiropractor">Chiropractor (Spinal Health Specialist)</option>
+                <option value="speech_therapist">Speech Therapist (Speech and Language Specialist)</option>
+            </select>
+            <input name="phone" placeholder="Enter the Phone" type="number" class="input-field">
+            <input name="email" placeholder="Enter the Email" type="email" class="input-field">
+            <input name="availability" placeholder="Enter the availability: example 10:00 AM - 4:00 PM" type="text" class="input-field">
+            <input name="fees" placeholder="Enter the Fees" type="number" class="input-field">
+            <input name="place" placeholder="Enter the Place" type="text" class="input-field">
+            <button type="submit" class="submit-btn">Register</button>
+
+        </form>
+    </div>
 </div>
-<button><a href="{% url 'login'%}">login</a></button>
-</body>
-</html>
+
+
+<style>
+
+/* Basic Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    text-color:black;
+    font-family: Arial, sans-serif;
+
+    background: linear-gradient(180deg, #a0c4ff, #ffffff);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Soft gradient background */
+}
+
+/* Form Box Styling */
+.form-box {
+    background-color: #ffffff;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 10);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+/* Login Button Styling (positioned at top) */
+.login-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff6a00;
+    color: white;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top:50px;
+    margin-right:10px;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Hover effect for the login button */
+.login-btn:hover {
+    background-color: #ee0979;
+}
+
+/* Input Fields */
+.input-field {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color:black;
+    transition: border-color 0.3s ease;
+}
+
+/* Focus effect for input fields */
+.input-field:focus {
+    border-color: #00b4db;
+    outline: none;
+}
+
+/* Submit Button */
+.submit-btn {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for submit button */
+.submit-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+select{
+    text-color:black;
+}
+
+/* Responsive Design - Using Flexbox for smaller screens */
+@media screen and (max-width: 768px) {
+    .form-box {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+/* Responsive Design - Grid layout for very small screens (mobile) */
+@media screen and (max-width: 480px) {
+    .form-box {
+        width: 100%;
+        padding: 15px;
+    }
+    .input-field, .submit-btn {
+        font-size: 14px;
+    }
+}
+
+
+</style>
+{%endblock%}

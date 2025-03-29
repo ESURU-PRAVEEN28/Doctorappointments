@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block extra_css %}{% endblock %}
+    {% block title %}<title></title>{% endblock %}
+
+</head>
+<style>/* Navbar container */
+.navbar {
+        display: flex
+;
+    flex-direction: column-reverse;
+    justify-content: right;
+    align-items: flex-end;
+    margin-bottom:30px;
+    padding: 10px 20px;
+     background:black; /* Dark gray background */
+    color: #ffffff; /* White text */
+    position: relative; /* Ensure navbar is positioned relative */
+    z-index: 1000; /* Ensure navbar stays above everything */
+}
+
+/* Logo */
+
+
+/* Navbar links */
+.navbar .nav-links {
+    display: flex;
+    gap: 20px;
+    z-index: 1001; /* Ensure the dropdown stays above other content */
+}
+
+/* Navbar links - when active */
+.navbar .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Place it under navbar */
+    right: 20px;
+    width: 200px;
+    background-color: #343a40;
+    border-radius: 8px;
+}
+
+/* Navbar links - for large screens */
+.navbar .nav-links {
+    display: flex; /* Horizontal layout for large screens */
+    gap: 20px;
+}
+
+/* Navbar links */
+.navbar .nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.navbar .nav-links a:hover {
+    background-color: #4caf50; /* Hover effect */
+    color: #ffffff;
+}
+
+/* Mobile menu button */
+.navbar .menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .navbar .menu-toggle {
+        display: block;
+    }
+
+    .navbar .nav-links {
+        display: none; /* Hide links by default */
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 200px;
+        background-color: #343a40;
+        border-radius: 8px;
+        flex-direction-right: column; /* Stack links vertically */
+        gap: 10px;
+    }
+
+    .navbar .nav-links.active {
+        display: flex; /* Show links when active */
+    }
+}
+
+
+
+</style>
+<body>
+    <nav class="navbar">
+
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Doctor List</a>
+             <a href="{% url 'register' %}">Register</a>
+                <a href="{% url 'admin_login' %}">Admin Login</a>
+                <a href="{% url 'login'%}">Login</a>
+              
+        </div>
+        <!-- Time Display Div inside navbar -->
+        <div id="timeDisplay" class="time-display" style="display: none;"></div>
+    </nav>
+
+    <script>
+
+
+    function toggleMenu() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('active');
+    }
+
+
+    </script>
+
+{% block content %}
+{% endblock %}
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-about">
+            <h3>About Us</h3>
+            <p>Your trusted source for quality services. We strive to provide the best customer experience.</p>
+        </div>
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="{% url 'home' %}">Docter List</a></li>
+                <li><a href="{% url 'admin_login' %}">Admin Login</a></li>
+                <li><a href="{% url 'login'%}">Login</a></li>
+              <li><a href="{% url 'register'%}">Register</a></li>
+
+                
+            </ul>
+        </div>
+
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; Esuru Praveen</p>
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .time-display {
+        font-size: 14px;
+        color: #ffffff;
+        font-weight: bold;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+select,input{color:white;}
+
+      /* Footer Styles */
+.footer {
+    background-color: #343a40; /* Dark background */
+    color: #ffffff; /* White text */
+    padding: 40px 20px 20px;
+    font-family: Arial, sans-serif;
+    margin-top:30px;
+}
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.footer-container div {
+    flex: 1;
+    min-width: 200px;
+}
+.footer-about p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-links li {
+    margin: 8px 0;
+}
+.footer-links a {
+    color: #4caf50; /* Green link color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.footer-links a:hover {
+    color: #ffffff;
+}
+.footer-social .social-icons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.footer-social a {
+    color: #4caf50;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+.footer-social a:hover {
+    color: #ffffff;
+}
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    border-top: 1px solid #4caf50;
+    padding-top: 10px;
+}
+
+
+
+/* this correct */
+
+</style>
+
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>

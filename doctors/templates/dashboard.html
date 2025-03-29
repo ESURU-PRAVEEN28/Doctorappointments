@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-this is login page
+{% extends 'master.html'%}
+{% load static %}
+{% block title %}<title>Home</title>{% endblock %}
+{% block extra_css %}{%endblock%}
+
+{% block content %}
 <form action="{%url 'booking'%}" method="post">
 {%csrf_token%}
 <input type="hidden" name="mail" value="{{mail}}">
 <button type="submit"> booking</button>
     </form>
-<form action="{%url 'shedule'%}" method="post">
-{%csrf_token%}
-<input type="hidden" name="mail" value="{{mail}}">
-<button type="submit"> Shedules</button>
-    </form>
+
 
 
 <form action="{%url 'dates'%}" method="post">
@@ -23,5 +17,4 @@ this is login page
 <input type="hidden" name="mail" value="{{mail}}">
 <button type="submit">Dates</button>
     </form>
-</body>
-</html>
+{%endblock%}

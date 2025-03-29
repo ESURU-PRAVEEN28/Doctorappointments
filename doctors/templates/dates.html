@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dates</title>
-</head>
-<body>
+{% extends 'master.html'%}
+{% load static %}
+{% block title %}<title>Home</title>{% endblock %}
+{% block extra_css %}{%endblock%}
+
+{% block content %}
 {%for i in data%}
 <form action="{% url 'shedule'%}" method="post">
   {%csrf_token%}
@@ -15,5 +14,4 @@
   <button type="submit">{{i.date}}</button>
   </form>
 {%endfor%}
-</body>
-</html>
+{%endblock%}

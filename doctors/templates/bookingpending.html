@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Booking Pending</title>
-</head>
+{% extends 'master.html'%}
+{% load static %}
+{% block title %}<title>Home</title>{% endblock %}
+{% block extra_css %}{%endblock%}
+
+{% block content %}
 <style>
   table,tr,th,td{
   border:2px solid black,
 
   }
 </style>
-<body>
-hi this login page
+
 <table>
   <tr>
     <th>Name</th>
@@ -43,11 +42,22 @@ hi this login page
       <input type="hidden" name="doc_mail" value="{{i.doc_mail}}">
       <input type="hidden" name="doctor" value="{{i.doctor}}">
 
-    <td><button>Conformed</button></td>
+    <td><button>Confirmed</button></td>
       </form>
-    <form>
-    <td><button>Reject</button></td>
-    </form>
+    <form action="{%url 'rejecting'%}" method="post">
+      {% csrf_token %}
+
+
+
+      <input type="hidden" name="name" value="{{i.name}}">
+      <input type="hidden" name="problem" value="{{i.problem}}">
+      <input type="hidden" name="email" value="{{i.email}}">
+      <input type="hidden" name="address" value="{{i.address}}">
+      <input type="hidden" name="doc_mail" value="{{i.doc_mail}}">
+      <input type="hidden" name="doctor" value="{{i.doctor}}">
+
+    <td><button>Rejected</button></td>
+      </form>
 
 
 
@@ -58,5 +68,4 @@ hi this login page
 
 
 </table>
-</body>
-</html>
+{%endblock%}

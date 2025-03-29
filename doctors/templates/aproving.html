@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Approve</title>
-</head>
-<body>
+{% extends 'master.html'%}
+{% load static %}
+{% block title %}<title>Home</title>{% endblock %}
+{% block extra_css %}{%endblock%}
+
+{% block content %}
 <table>
     <tr>
     <th>Name</th>
@@ -62,5 +61,4 @@
      </div>
 
     </table>
-</body>
-</html>
+{%endblock%}

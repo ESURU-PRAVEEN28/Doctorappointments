@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
+{% extends 'master.html'%}
+{% load static %}
+{% block title %}<title>Loginpage</title>{% endblock %}
+{% block extra_css %}{%endblock%}
+
+{% block content %}
 
 <div class="con">
     <h2>Admin Login</h2>
@@ -29,6 +28,126 @@
     </div>
 </div>
 
+<style>
+    .con input{
+    color:black;
+    }
+    /* Basic Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 
-</body>
-</html>
+   background: linear-gradient(180deg, #a0c4ff, #ffffff);
+}
+
+/* Container to center content */
+.con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh; /* Full height of the screen */
+     /* Gradient background */
+
+}
+
+/* Heading for Admin Login */
+.con h2 {
+    color: black;
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Error messages styling */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Form box styling */
+.inner {
+    background-color: #ffffff;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 10);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+/* Input fields */
+.inner input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+/* Focus effect for input fields */
+.inner input:focus {
+    border-color: #2575fc;
+    outline: none;
+}
+
+/* Submit button styling */
+.inner button {
+    padding: 10px;
+    background-color: #2575fc;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for submit button */
+.inner button:hover {
+    background-color: #6a11cb;
+    transform: scale(1.05); /* Slight increase in size on hover */
+}
+
+/* Responsive Design - Flexbox for smaller screens */
+@media screen and (max-width: 768px) {
+    .inner {
+        width: 90%;
+        padding: 25px;
+    }
+
+    .con h2 {
+        font-size: 28px;
+    }
+
+    .inner button {
+        font-size: 14px;
+    }
+}
+
+/* Responsive Design - Grid layout for very small screens (mobile) */
+@media screen and (max-width: 480px) {
+    .inner {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .con h2 {
+        font-size: 24px;
+    }
+
+    .inner input, .inner button {
+        font-size: 14px;
+    }
+}
+
+</style>
+{%endblock%}

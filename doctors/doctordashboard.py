@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Doctor, Booking, Appointments
 from django.views.decorators.csrf import csrf_exempt
+from .views import emailmessage
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -34,13 +35,15 @@ def login(request):
 def booking(request):
     mail=request.POST.get('mail')
     print(mail)
-    data=Booking.objects.filter(doc_mail=mail)
+    data=Booking.objects.filter(doc_mail=mail,is_verify=2)
+
     return render(request,'bookingpending.html',{'data':data})
 @csrf_exempt
 def confirm(request):
     name=request.POST.get('name')
     problem=request.POST.get('problem')
     date=request.POST.get('date')
+    print(date)
     email=request.POST.get('email')
     address=request.POST.get('address')
     doctor=request.POST.get('doctor')
@@ -48,9 +51,10 @@ def confirm(request):
 
 
     def posting():
+        print(date)
         data = Appointments.objects.get(date=date)
         list = data.appointments
-        print(f"this is hello kk {data.appointments}")
+
 
         j = 0
         for i in list:
@@ -60,14 +64,43 @@ def confirm(request):
                 ed = {"Name": name, "problem": problem, "email": email, "address": address, "doctor": doctor,
                       "doc_mail": doc_mail}
                 i['application'].append(ed)
+                bk = Booking.objects.get(email=email, problem=problem, name=name, address=address, doctor=doctor,
+                                         doc_mail=doc_mail)
+                bk.is_verify = 0
+                print(bk.is_verify, "junnu")
+                bk.save()
                 break
         if j == 0:
             ed = {"Doctor_Mail": doc_mail, "application": [
                 {"Name": name, "problem": problem, "email": email, "address": address, "doctor": doctor,
                  "doc_mail": doc_mail}]}
             list.append(ed)
+            bk = Booking.objects.get(email=email,problem=problem,name=name,address=address,doctor=doctor,doc_mail=doc_mail)
+            bk.is_verify=0
+            print(bk.is_verify,"junnu")
+            bk.save()
         print(list)
 
+        subject = f"  Doctor Appointment Confirmed "
+        message = f"""
+                Hi {name} ,this is confirming message   for doctor appointment  of your booking 
+                Name: {name}
+                Problem: {problem}
+                Date of appointment:{date} of DoctorName {doctor}
+                Address: {address}
+                Thanking you,
+
+                """
+
+        # Send the email
+        # send_mail(
+        #     subject,
+        #     message,
+        #     settings.DEFAULT_FROM_EMAIL,
+        #     [receiver_email],
+        #     fail_silently=False,
+        # )
+        emailmessage(subject, message, email)
         data.appointments = list
         data.save()
 
@@ -80,6 +113,7 @@ def confirm(request):
 
         print(e)
         Appointments.objects.create(date=date)
+
 
         posting()
 
@@ -122,4 +156,41 @@ def dates(request):
     return render(request,'dates.html',{'data':data,'mail':request.POST.get('mail')})
 
 
+
+def rejecting(request):
+    if request.method=="POST":
+        name = request.POST.get('name')
+        problem = request.POST.get('problem')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        doctor = request.POST.get('doctor')
+        doc_mail = request.POST.get('doc_mail')
+        bk = Booking.objects.get(email=email, problem=problem,name=name,address=address,doctor=doctor,doc_mail=doc_mail)
+
+        bk.is_verify = 1
+        bk.save()
+
+        subject = f"  Doctor Appointment Rejected "
+        message = f"""
+                        Hi {name} ,this is Rejecting message   for doctor appointment  of your booking 
+                        Name: {name}
+                        Problem: {problem}
+                        Address: {address}
+                        ReApply: Reapply to the application
+                        Thanking you,
+
+                        """
+
+        # Send the email
+        # send_mail(
+        #     subject,
+        #     message,
+        #     settings.DEFAULT_FROM_EMAIL,
+        #     [receiver_email],
+        #     fail_silently=False,
+        # )
+        emailmessage(subject, message, email)
+
+
+    return HttpResponse("this os ")
 
