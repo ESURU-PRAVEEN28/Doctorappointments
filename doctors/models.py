@@ -24,7 +24,7 @@ class Doctor(models.Model):
 
 
 class Appointments(models.Model):
-    date = models.DateField(unique=True)
+    date = models.DateField(unique=True )
     appointments = models.JSONField(default=[])
 
 

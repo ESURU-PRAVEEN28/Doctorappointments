@@ -1,64 +1,231 @@
 {% extends 'master.html'%}
 {% load static %}
-{% block title %}<title>Home</title>{% endblock %}
-{% block extra_css %}{%endblock%}
+{% block title %}{% endblock %}
+{% block extra_css %}{% endblock %}
 
 {% block content %}
-<table>
+<div class="hello">
+<table class="tty">
     <tr>
-    <th>Name</th>
-        <th>specialization</th>
-         <th>phone</th>
-         <th>email</th>
-         <th>registration_date</th>
-         <th>availability</th>
-         <th>fees</th>
-         <th>place</th>
-         <th>Apporve</th>
+        <th>Name</th>
+        <th>Specialization</th>
+
+        <th>Email</th>
+
+
+
+
+        <th>Approve</th>
         <th>Reject</th>
     </tr>
-     <div class="main">
-       {% for i in data%}
-    <div class="card">
-        <tr>
-    <td>{{i.name }}</td>
-    <td>{{i.specialization}} </td>
-    <td>{{i.phone }}</td>
-    <td> {{i.email }}</td>
-    <td>{{i.registration_date}} </td>
-    <td>{{i.availability}} </td>
-    <td>{{i.fees}} </td>
-     <td> {{i.place}}</td>
-            <td>
-                <form method="POST" action="{%url 'approvedoctor'%}">
-                    <input type="hidden" value="{{i.email }}" name="mail">
+    <div class="main">
+        {% for i in data %}
 
-                    <button type="submit">Approve</button>
+            <tr>
+                <td>{{ i.name }}</td>
+                <td>{{ i.specialization }}</td>
 
-                </form>
+                <td>{{ i.email }}</td>
 
-            </td>
-             <td>
-                <form method="POST" action="{%url 'reject'%}">
-                    <input type="hidden" value="{{i.email }}" name="mail">
+                <td>
+                    <form method="POST" action="{% url 'approvedoctor' %}">
+                        <input type="hidden" value="{{ i.email }}" name="mail">
+                        <button type="submit">Approve</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{% url 'reject' %}">
+                        <input type="hidden" value="{{ i.email }}" name="mail">
+                        <button type="submit">Reject</button>
+                    </form>
+                </td>
+            </tr>
 
-                    <button type="submit">Reject</button>
-
-                </form>
-
-            </td>
-
-
-        </tr>
-
-
+        {% endfor %}
+    </div>
+</table>
 
     </div>
+<style>
 
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
+/* Body Styling */
+body {
+    background-color: #f4f7fc;
+    font-size: 14px;
+    color: #333;
 
-    {%endfor%}
-     </div>
+}
 
-    </table>
-{%endblock%}
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+/* Table Headers and Cells Styling */
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+thead {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Main container for buttons */
+.main button {
+    padding: 4px 2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 9px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #007BFF;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Hover Effects for Rows */
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Main Container */
+.main {
+    display: block;
+    overflow-x: auto;
+}
+
+/* Table container adjustments */
+.tty {
+    max-width: 100%;
+    margin: auto;
+}
+
+/* Responsive Design for Table */
+@media screen and (max-width: 1024px) {
+    table {
+        font-size: 14px;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+
+    button {
+        padding: 6px 15px;
+    }
+}
+
+/* For Medium Screens (Tablets, smaller devices) */
+@media screen and (max-width: 768px) {
+    table {
+        font-size: 13px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    .main button {
+        padding: 8px 2px;
+        font-size: 12px;
+    }
+}
+
+/* For Small Screens (Phones, Tablets) */
+@media screen and (max-width: 480px) {
+    table {
+        font-size: 9px;
+    }
+
+    th, td {
+        padding: 2px;
+    }
+
+    .main button {
+
+        font-size: 6px;
+    }
+
+    thead {
+        font-size: 9px;
+    }
+
+    .main {
+        margin-bottom: 20px;
+    }
+}
+
+/* For Very Small Screens (Mobile devices, up to 360px) */
+@media screen and (max-width: 360px) {
+    table {
+        font-size: 9px;
+        width: 85%;
+    }
+
+    th, td {
+        padding: 2px;
+    }
+
+    .main button {
+        font-size: 6px;
+        padding: 2px 2px;
+    }
+
+    thead {
+        font-size: 9px;
+    }
+
+    .hello {
+        padding: 2px;
+    }
+
+    .tty {
+        width: 85%;
+    }
+}
+
+/* Optional: Styling for Mobile-Friendly Forms */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+input, button {
+    padding: 2px;
+    font-size: 9px;
+    margin: 3px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+</style>
+{% endblock %}

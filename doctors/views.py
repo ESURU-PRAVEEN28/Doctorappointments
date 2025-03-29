@@ -35,7 +35,7 @@ def register(request):
 
         )
 
-        return render(request, 'register_doctor.html') # Redirect to a success page
+        return render(request, 'regi_success.html') # Redirect to a success page
 
     return render(request, 'register_doctor.html')
 
