@@ -12,7 +12,7 @@ from .views import emailmessage
 def approve(request):
     data = Doctor.objects.filter(status=2)
     # print(data)
-    return render(request, 'aproving.html',{'data':data})
+    return render(request, 'admin/aproving.html',{'data':data})
 
 @csrf_exempt
 def approvedoctor(request):

@@ -4,6 +4,7 @@
 {% block extra_css %}{%endblock%}
 
 {% block content %}
+
 <form action="{%url 'booking'%}" method="post">
 {%csrf_token%}
 <input type="hidden" name="mail" value="{{mail}}">

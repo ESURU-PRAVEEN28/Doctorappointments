@@ -34,7 +34,7 @@ class Booking(models.Model):
     email=models.EmailField(max_length=300)
     address=models.TextField(max_length=500)
     doctor=models.CharField(max_length=100)
-    doc_mail=models.EmailField(max_length=300,default="NONE@gmail.com")
+    doc_mail=models.EmailField(max_length=300)
     specialization=models.CharField(max_length=100 )
     is_verify=models.IntegerField(
         default=2,

@@ -1,6 +1,6 @@
 from django.urls import path,include
 from .views import register,send_email_view,verify
-from .loginpage import admin_login
+from .loginpage import admin_login,logout
 from .approving import approve,approvedoctor,reject
 from .doctordashboard import login,booking,confirm,shedule,dates,rejecting
 from .home import home,master
@@ -21,5 +21,6 @@ urlpatterns=[
     path('shedule/',shedule,name="shedule"),
     path('dates/',dates,name="dates"),
     path('rejecting/',rejecting,name="rejecting"),
-    path('',master,name="master")
+    path('',master,name="master"),
+    path('logout/',logout,name="logout")
 ]

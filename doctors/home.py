@@ -11,7 +11,7 @@ def home(request):
     data = Doctor.objects.filter(status=0)
     # d=User.objects.create_user(username="gana123",password="gana123",is_staff=True)
     print(data)
-    return render(request,'home.html',{'data':data})
+    return render(request,'home/home.html',{'data':data})
 
 
 def master(request):

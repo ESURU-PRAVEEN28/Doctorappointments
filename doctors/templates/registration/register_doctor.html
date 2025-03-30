@@ -10,11 +10,20 @@
     <div class="form-box">
 
         <form method="POST" action="{% url 'register'%}">
+
+            {% if messages %}
+        {% for message in messages %}
+            <p class="error-message">{{ message }}</p>
+        {% endfor %}
+            {% endif %}
             {% csrf_token %}
-            <input name="name" placeholder="Enter the Name" type="text" class="input-field">
-            <input name="password" placeholder="Enter the Password" type="text" class="input-field">
-            <label for="specialist">Choose a Specialist:</label>
-            <select id="specialist" name="specialization" class="input-field">
+            <label for="specialist">Name:</label><br>
+            <input name="name" placeholder="Enter the Name" type="text" class="input-field" required><br>
+            <label for="specialist">Password</label><br>
+
+            <input name="password" placeholder="Enter the Password" type="text" class="input-field" required><br>
+            <label for="specialist">Specialist:</label><br>
+            <select id="specialist" name="specialization" class="input-field"><br>
                 <option value="neurologist">Neurologist (Brain Doctor)</option>
                 <option value="cardiologist">Cardiologist (Heart Doctor)</option>
                 <option value="dermatologist">Dermatologist (Skin Doctor)</option>
@@ -42,12 +51,19 @@
                 <option value="chiropractor">Chiropractor (Spinal Health Specialist)</option>
                 <option value="speech_therapist">Speech Therapist (Speech and Language Specialist)</option>
             </select>
-            <input name="phone" placeholder="Enter the Phone" type="number" class="input-field">
-            <input name="email" placeholder="Enter the Email" type="email" class="input-field">
-            <input name="availability" placeholder="Enter the availability: example 10:00 AM - 4:00 PM" type="text" class="input-field">
-            <input name="fees" placeholder="Enter the Fees" type="number" class="input-field">
-            <input name="place" placeholder="Enter the Place" type="text" class="input-field">
+            <label for="specialist">Phone Number</label><br>
+            <input name="phone" placeholder="Enter the Phone" type="number" class="input-field" required><br>
+            <label for="specialist">Email</label><br>
+            <input name="email" placeholder="Enter the Email" type="email" class="input-field" required><br>
+            <label for="specialist">Availability</label><br>
+            <input name="availability" placeholder="Enter the availability: example 10:00 AM - 4:00 PM" type="text" class="input-field" required><br>
+            <label for="specialist">Fees</label><br>
+            <input name="fees" placeholder="Enter the Fees" type="number" class="input-field" required><br>
+            <label for="specialist">Place:</label><br>
+            <input name="place" placeholder="Enter the Place" type="text" class="input-field" required><br>
+
             <button type="submit" class="submit-btn">Register</button>
+
 
         </form>
     </div>
@@ -70,6 +86,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+
     height: 100vh;
     /* Soft gradient background */
 }
@@ -78,7 +95,7 @@ body, html {
 .form-box {
     background-color: #ffffff;
     padding: 30px;
-    width: 85%;
+    width: 100%;
     max-width: 400px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 10);
@@ -116,9 +133,11 @@ body, html {
 }
 
 /* Input Fields */
-.input-field {
+.input-field ,select,option
+{
     padding: 10px;
     margin: 5px 0;
+    width:95%;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
@@ -141,6 +160,8 @@ body, html {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top:10px;
+    margin-left:150px;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
@@ -152,6 +173,41 @@ body, html {
 select{
     text-color:black;
 }
+/* Error Message Styling */
+.error-message {
+    padding: 10px;
+    background-color: #f8d7da; /* Light red background for errors */
+    color: #721c24; /* Dark red text color */
+    border: 1px solid #f5c6cb; /* Light red border */
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Responsive Design for Error Messages */
+@media screen and (max-width: 768px) {
+    .error-message {
+        font-size: 13px;
+        padding: 8px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .error-message {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .error-message {
+        font-size: 11px;
+        padding: 5px;
+    }
+}
+
 
 /* Responsive Design - Using Flexbox for smaller screens */
 @media screen and (max-width: 768px) {

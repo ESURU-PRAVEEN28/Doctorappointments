@@ -7,7 +7,13 @@
 <h2>Doctor Login</h2>
 <div class="main">
     <form method="post" action="{% url 'login' %}">
+        {% if messages %}
+        {% for message in messages %}
+            <p class="error-message">{{ message }}</p>
+        {% endfor %}
+{% endif %}
         {% csrf_token %}
+
         <input type="email" name="name" placeholder="Enter the email:" required>
         <input type="text" name="password" placeholder="Enter the Password:" required>
         <button type="submit">Submit</button>
@@ -32,7 +38,7 @@ h2 {
     color: black;
     font-size: 32px;
     margin-top: 200px;
-    margin-bottom:-150px;
+    margin-bottom:-130px;
     text-transform: uppercase;
 }
 .main input{
@@ -123,6 +129,41 @@ color: white;
     background-color: #2575fc;
     transform: scale(1.05); /* Slight scaling effect */
 }
+/* Error Message Styling */
+.error-message {
+    padding: 10px;
+    background-color: #f8d7da; /* Light red background for errors */
+    color: #721c24; /* Dark red text color */
+    border: 1px solid #f5c6cb; /* Light red border */
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Responsive Design for Error Messages */
+@media screen and (max-width: 768px) {
+    .error-message {
+        font-size: 13px;
+        padding: 8px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .error-message {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .error-message {
+        font-size: 11px;
+        padding: 5px;
+    }
+}
+
 
 /* Responsive Design - For tablets and below */
 @media screen and (max-width: 768px) {

@@ -16,4 +16,9 @@ def admin_login(request):
         else:
             messages.error(request, "Invalid credentials or not an admin.")
 
-    return render(request, "loginpage.html")
+    return render(request, "admin/loginpage.html")
+
+def logout(request):
+    del request.session['d']
+    del request.session['gana']
+    return render(request,"doctorlogin/logout_success.html")

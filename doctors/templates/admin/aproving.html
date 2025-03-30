@@ -56,6 +56,7 @@
     font-family: Arial, sans-serif;
 }
 
+
 /* Body Styling */
 body {
     background-color: #f4f7fc;
@@ -66,10 +67,13 @@ body {
 
 /* Table Styling */
 table {
-    width: 100%;
+    width: 85%;
     border-collapse: collapse;
     margin-bottom: 20px;
     border: 1px solid #ddd;
+    background-color: #87CEEB;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 10);
 }
 
 /* Table Headers and Cells Styling */
@@ -77,11 +81,17 @@ th, td {
     padding: 12px 15px;
     text-align: left;
     border: 1px solid #ddd;
+
 }
 
 thead {
-    background-color: #4CAF50;
+    background-color: #ADD8E6;
     color: white;
+}
+tr:hover {
+    background-color: #f0f8ff;
+     /* Very light blue for row hover */
+
 }
 
 /* Main container for buttons */
@@ -89,15 +99,18 @@ thead {
     padding: 4px 2px;
     border: none;
     border-radius: 5px;
+
     cursor: pointer;
-    font-size: 9px;
+    font-size: 14px;
     transition: all 0.3s ease;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 20);
 }
 
 button:hover {
     background-color: #007BFF;
-    color: white;
+    color: yellow;
     transform: scale(1.05);
+
 }
 
 /* Hover Effects for Rows */
@@ -116,12 +129,21 @@ tr:hover {
     max-width: 100%;
     margin: auto;
 }
+input, button {
+
+    font-size: 14px;
+    margin: 3px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 5);
+}
 
 /* Responsive Design for Table */
 @media screen and (max-width: 1024px) {
     table {
         font-size: 14px;
-        width: 100%;
+        width: 85%;
     }
 
     th, td {
@@ -129,7 +151,8 @@ tr:hover {
     }
 
     button {
-        padding: 6px 15px;
+        padding: 6px 2px;
+        font-size:12px;
     }
 }
 
@@ -159,9 +182,10 @@ tr:hover {
         padding: 2px;
     }
 
-    .main button {
+    button {
 
-        font-size: 6px;
+        font-size: 9px;
+
     }
 
     thead {
@@ -184,8 +208,8 @@ tr:hover {
         padding: 2px;
     }
 
-    .main button {
-        font-size: 6px;
+    button {
+        font-size: 9px;
         padding: 2px 2px;
     }
 
@@ -209,13 +233,7 @@ form {
     gap: 12px;
 }
 
-input, button {
-    padding: 2px;
-    font-size: 9px;
-    margin: 3px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+
 
 input[type="submit"] {
     background-color: #4CAF50;
@@ -226,6 +244,10 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #45a049;
 }
+    th{
+    background-color:#007BFF;
+    box-shadow: 0 6px 12px rgba(144, 238, 144, 0.7);
+    }
 
 </style>
 {% endblock %}

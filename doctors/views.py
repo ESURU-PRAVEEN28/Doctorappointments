@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Doctor,Booking
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -12,32 +13,36 @@ from django.contrib.auth.decorators import login_required
 
 @csrf_exempt
 def register(request):
-    if request.method == "POST":
-        name = request.POST['name']
-        specialization = request.POST['specialization']
-        phone = request.POST['phone']
-        email = request.POST['email']
-        availability = request.POST['availability']
-        fees = request.POST['fees']
-        password=request.POST['password']
-        place=request.POST['place']
+    try:
+        if request.method == "POST":
+            name = request.POST['name']
+            specialization = request.POST['specialization']
+            phone = request.POST['phone']
+            email = request.POST['email']
+            availability = request.POST['availability']
+            fees = request.POST['fees']
+            password=request.POST['password']
+            place=request.POST['place']
 
-        # Save to database
-        Doctor.objects.create(
-            name=name,
-            specialization=specialization,
-            phone=phone,
-            email=email,
-            availability=availability,
-            fees=fees,
-            password=password,
-            place=place
+            # Save to database
+            Doctor.objects.create(
+                name=name,
+                specialization=specialization,
+                phone=phone,
+                email=email,
+                availability=availability,
+                fees=fees,
+                password=password,
+                place=place
 
-        )
+            )
 
-        return render(request, 'regi_success.html') # Redirect to a success page
+            return render(request, 'registration/regi_success.html') # Redirect to a success page
+    except Exception as e:
+        messages.error(request,'Email is already exited Please Register with valid Email:')
+        return render(request, 'registration/register_doctor.html')
+    return render(request, 'registration/register_doctor.html')
 
-    return render(request, 'register_doctor.html')
 
 
 
@@ -100,11 +105,12 @@ def send_email_view(request):
         #     fail_silently=False,
         # )
         emailmessage(subject,message,receiver_email)
+        print(receiver_email)
 
-        return render(request, 'send_email.html', {'otp': otp ,'name':name,'problem':problem,
+        return render(request, 'booking/send_email.html', {'otp': otp ,'name':name,'problem':problem,
                                                    'mail':receiver_email,'address':address,'specialization':specialization,
                                                 "doctor":doctor, "doc_mail":doc_mail,"spe":spe})  # Pass OTP to success page for display
-    return render(request, 'send_email.html',{"doctor":doc , "doc_mail":doc_mail ,"spe":spe})  # Render the form if GET request
+    return render(request, 'booking/send_email.html',{"doctor":doc , "doc_mail":doc_mail ,"spe":spe})  # Render the form if GET request
 
 
 @csrf_exempt
@@ -113,7 +119,16 @@ def verify(request):
         if request.method=="POST":
             veotp=request.POST.get('veotp')
             otp=request.POST.get('otp')
-            print(request.POST.get('spe'))
+
+            name = request.POST.get('name')
+            receiver_email = request.POST.get('mail')
+            print(receiver_email)
+            problem = request.POST.get('problem')
+            specialization = request.POST.get('specialization')
+            address = request.POST.get('address')
+            doctor = request.POST.get("doctor")
+            doc_mail = request.POST.get('doc_mail')
+            spe = request.POST.get('spe')
             if veotp == otp:
                 Booking.objects.create(name=request.POST.get('name'),
                                        problem=request.POST.get('problem'),
@@ -122,12 +137,17 @@ def verify(request):
                                        doctor=request.POST.get('doctor'),
                                        doc_mail=request.POST.get('doc_mail'),
                                        specialization=request.POST.get('spe'))
-                return render(request,'login.html')
+                return render(request,'booking/booking_success.html')
             else:
-                return HttpResponse('Password is incorrect')
+                messages.error(request, "Otp is not valid Please enter valid otp")
+                return render(request, 'booking/send_email.html',{'otp':otp,'name':name,'problem':problem,
+                                                   'mail':receiver_email,'address':address,'specialization':specialization,
+                                                "doctor":doctor, "doc_mail":doc_mail,"spe":spe})
+
     except Exception as e:
-        print("this is error")
-        return HttpResponse(f"this is error {e}")
+        print("this is error",e)
+        messages.error(request,"valid information")
+        return render(request,'booking/send_email.html')
 
 
 

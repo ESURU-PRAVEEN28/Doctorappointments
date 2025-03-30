@@ -106,10 +106,18 @@
 
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         <div class="nav-links">
+
+
+            {%if request.session.d %}
+               <a href="{% url 'logout'%}">Logout</a>
+            {%else%}
             <a href="{% url 'home' %}">Doctor List</a>
-             <a href="{% url 'register' %}">Register</a>
+            <a href="{% url 'register' %}">Register</a>
                 <a href="{% url 'admin_login' %}">Admin Login</a>
                 <a href="{% url 'login'%}">Login</a>
+            {%endif%}
+
+
               
         </div>
         <!-- Time Display Div inside navbar -->
@@ -139,10 +147,14 @@
         <div class="footer-links">
             <h3>Quick Links</h3>
             <ul>
-                <li><a href="{% url 'home' %}">Docter List</a></li>
-                <li><a href="{% url 'admin_login' %}">Admin Login</a></li>
-                <li><a href="{% url 'login'%}">Login</a></li>
-              <li><a href="{% url 'register'%}">Register</a></li>
+                {%if request.session.d %}
+               <a href="{% url 'logout'%}">Logout</a>
+            {%else%}
+            <a href="{% url 'home' %}">Doctor List</a>
+            <a href="{% url 'register' %}">Register</a>
+                <a href="{% url 'admin_login' %}">Admin Login</a>
+                <a href="{% url 'login'%}">Login</a>
+            {%endif%}
 
                 
             </ul>

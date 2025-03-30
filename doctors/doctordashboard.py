@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from .models import Doctor, Booking, Appointments
 from django.views.decorators.csrf import csrf_exempt
 from .views import emailmessage
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -17,11 +18,13 @@ def login(request):
             user = request.POST.get('name')
             password1 = request.POST.get('password')
             data = Doctor.objects.get(email=user)
+            request.session["d"]=1
             if data.status==0:
                 if data and password1 == data.password :
-                    return render(request,'dashboard.html',{'mail':user})
+                    return render(request,'doctorlogin/dashboard.html',{'mail':user , 'd':request.session.get("d")})
                 else:
-                    return HttpResponse("this is wrong data")
+                    messages.error(request,"password was in correct")
+                    return render(request, 'doctorlogin/login.html')
             elif data.status==1:
                 return HttpResponse("this is rejected by adminstration:")
             else:
@@ -29,99 +32,110 @@ def login(request):
         except Exception as e:
             return HttpResponse(f"An error occurred: {e}")
         return HttpResponse("this is posted")
-    return render(request, 'login.html')
+    return render(request, 'doctorlogin/login.html',{'d':0})
 
 @csrf_exempt
 def booking(request):
-    mail=request.POST.get('mail')
-    print(mail)
-    data=Booking.objects.filter(doc_mail=mail,is_verify=2)
+    if request.method == "POST":
+        mail = request.POST.get('mail')
+        print(mail)
+        request.session["gana"] = mail
+        data = Booking.objects.filter(doc_mail=mail, is_verify=2)
+        return render(request,'doctorlogin/bookingpending.html',
+                      {'data':data})
+    data = Booking.objects.filter(doc_mail=request.session.get("gana"), is_verify=2)
 
-    return render(request,'bookingpending.html',{'data':data})
+    return render(request, 'doctorlogin/bookingpending.html',
+                  {'data':data})
 @csrf_exempt
 def confirm(request):
-    name=request.POST.get('name')
-    problem=request.POST.get('problem')
-    date=request.POST.get('date')
-    print(date)
-    email=request.POST.get('email')
-    address=request.POST.get('address')
-    doctor=request.POST.get('doctor')
-    doc_mail=request.POST.get('doc_mail')
 
-
-    def posting():
+    if request.method == "POST":
+        name = request.POST.get('name')
+        problem = request.POST.get('problem')
+        date = request.POST.get('date')
         print(date)
-        data = Appointments.objects.get(date=date)
-        list = data.appointments
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        doctor = request.POST.get('doctor')
+        doc_mail = request.POST.get('doc_mail')
 
 
-        j = 0
-        for i in list:
-            if i["Doctor_Mail"] == doc_mail:
-                j = 1
-            if j == 1:
-                ed = {"Name": name, "problem": problem, "email": email, "address": address, "doctor": doctor,
-                      "doc_mail": doc_mail}
-                i['application'].append(ed)
-                bk = Booking.objects.get(email=email, problem=problem, name=name, address=address, doctor=doctor,
-                                         doc_mail=doc_mail)
-                bk.is_verify = 0
-                print(bk.is_verify, "junnu")
+        def posting():
+            print(date)
+            data = Appointments.objects.get(date=date)
+            list = data.appointments
+
+
+            j = 0
+            for i in list:
+                if i["Doctor_Mail"] == doc_mail:
+                    j = 1
+                if j == 1:
+                    ed = {"Name": name, "problem": problem, "email": email, "address": address, "doctor": doctor,
+                          "doc_mail": doc_mail}
+                    i['application'].append(ed)
+                    bk = Booking.objects.get(email=email, problem=problem, name=name, address=address, doctor=doctor,
+                                             doc_mail=doc_mail)
+                    bk.is_verify = 0
+                    print(bk.is_verify, "junnu")
+                    bk.save()
+                    break
+            if j == 0:
+                ed = {"Doctor_Mail": doc_mail, "application": [
+                    {"Name": name, "problem": problem, "email": email, "address": address, "doctor": doctor,
+                     "doc_mail": doc_mail}]}
+                list.append(ed)
+                bk = Booking.objects.get(email=email,problem=problem,name=name,address=address,doctor=doctor,doc_mail=doc_mail)
+                bk.is_verify=0
+                print(bk.is_verify,"junnu")
                 bk.save()
-                break
-        if j == 0:
-            ed = {"Doctor_Mail": doc_mail, "application": [
-                {"Name": name, "problem": problem, "email": email, "address": address, "doctor": doctor,
-                 "doc_mail": doc_mail}]}
-            list.append(ed)
-            bk = Booking.objects.get(email=email,problem=problem,name=name,address=address,doctor=doctor,doc_mail=doc_mail)
-            bk.is_verify=0
-            print(bk.is_verify,"junnu")
-            bk.save()
-        print(list)
+            print(list)
 
-        subject = f"  Doctor Appointment Confirmed "
-        message = f"""
-                Hi {name} ,this is confirming message   for doctor appointment  of your booking 
-                Name: {name}
-                Problem: {problem}
-                Date of appointment:{date} of DoctorName {doctor}
-                Address: {address}
-                Thanking you,
+            subject = f"  Doctor Appointment Confirmed "
+            message = f"""
+                    Hi {name} ,this is confirming message   for doctor appointment  of your booking 
+                    Name: {name}
+                    Problem: {problem}
+                    Date of appointment:{date} of DoctorName {doctor}
+                    Address: {address}
+                    Thanking you,
+    
+                    """
 
-                """
-
-        # Send the email
-        # send_mail(
-        #     subject,
-        #     message,
-        #     settings.DEFAULT_FROM_EMAIL,
-        #     [receiver_email],
-        #     fail_silently=False,
-        # )
-        emailmessage(subject, message, email)
-        data.appointments = list
-        data.save()
+            # Send the email
+            # send_mail(
+            #     subject,
+            #     message,
+            #     settings.DEFAULT_FROM_EMAIL,
+            #     [receiver_email],
+            #     fail_silently=False,
+            # )
+            emailmessage(subject, message, email)
+            data.appointments = list
+            data.save()
 
 
-    try:
+        try:
 
-        posting()
+            posting()
 
-    except Exception as e:
+        except Exception as e:
 
-        print(e)
-        Appointments.objects.create(date=date)
+            print(e)
+            Appointments.objects.create(date=date)
 
 
-        posting()
+            posting()
 
 
 
-    print(name,address,email
-          ,doctor,date,doc_mail,problem)
-    return HttpResponse("this is approval page")
+        print(name,address,email
+              ,doctor,date,doc_mail,problem)
+        return redirect('booking')
+
+    return render(request, "doctorlogin/bookingpending.html")
+
 
 
 
@@ -148,12 +162,12 @@ def shedule(request):
                     sub.append(k["Name"])
                     sub.append(k["problem"])
                     values.append(sub)
-        return render(request, 'shedule.html', {'data': datess, 'va': values})
+        return render(request, 'doctorlogin/shedule.html', {'data': datess, 'va': values})
 
 
 def dates(request):
     data=Appointments.objects.all()
-    return render(request,'dates.html',{'data':data,'mail':request.POST.get('mail')})
+    return render(request,'doctorlogin/dates.html',{'data':data,'mail':request.POST.get('mail')})
 
 
 
@@ -192,5 +206,5 @@ def rejecting(request):
         emailmessage(subject, message, email)
 
 
-    return HttpResponse("this os ")
+    return redirect('booking')
 
